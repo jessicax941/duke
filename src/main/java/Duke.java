@@ -210,23 +210,20 @@ public class Duke {
         Scanner sc = new Scanner(file);
         while (sc.hasNext()) {
             String line = sc.nextLine(); // eg. T|0|read book
-            // 0: T/D/E
-            // 1: 0/1
-            // 2: desc
-            // 3: event date/time or deadline
             String[] taskDetails = line.split(",");
             String taskType = taskDetails[0];
+            int booleanInt = Integer.parseInt(taskDetails[1]);
             switch (taskType) {
             case "T":
-                Todo todo = new Todo(taskDetails[2], Boolean.parseBoolean(taskDetails[1]));
+                Todo todo = new Todo(taskDetails[2], booleanInt == 0);
                 this.list.add(todo);
                 break;
             case "D":
-                Deadline deadline = new Deadline(taskDetails[2], Boolean.parseBoolean(taskDetails[1]), taskDetails[3]);
+                Deadline deadline = new Deadline(taskDetails[2], booleanInt == 0, taskDetails[3]);
                 this.list.add(deadline);
                 break;
             case "E":
-                Event event = new Event(taskDetails[2], Boolean.parseBoolean(taskDetails[1]), taskDetails[3]);
+                Event event = new Event(taskDetails[2], booleanInt == 0, taskDetails[3]);
                 this.list.add(event);
                 break;
             default:
